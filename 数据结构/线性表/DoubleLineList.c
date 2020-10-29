@@ -154,7 +154,9 @@ DLinkList AfterInsert(DLinkList head, int i, ElemType e) {
 	L = (DLink*)malloc(sizeof(DLink));
 	L->data = e;
 	L->next = p->next;
-	p->next->prior = L;
+	if (p->next != NULL) {
+		p->next->prior = L;
+	}
 	L->prior = p;
 	p->next = L;
 	return head;
@@ -169,7 +171,8 @@ DLinkList DeleteElem(DLinkList head, int i) {
 	DLink* p, * q;
 	p = GetElem(head, i - 1);
 	q = p->next;
-	q->next->prior = p;
+	if(q->next)
+		q->next->prior = p;
 	p->next = q->next;
 	free(q);
 	return head;
