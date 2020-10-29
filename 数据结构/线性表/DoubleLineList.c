@@ -9,6 +9,21 @@ typedef struct DoubleLink {
 
 DLinkList head;//定义头指针
 
+/*
+	DoubleLinkList(双链表的实现)
+
+	函数模块
+	HeadInsert() 头插法创建链表
+	TailInsert() 尾插法创建链表
+	GetElem() 获取指定位置的元素值
+	LocateElem() 获取指定元素首个位置
+	BefortInstert() 向指定位置前插入值
+	AfterInstert() 向指定位置后插入值
+	DeleteElem() 删除指定位置元素
+	ListLength() 获取当前链表长度（不带头）
+	PrintList() 打印当前链表
+*/
+
 //双链表的实现
 
 /*
@@ -161,6 +176,17 @@ DLinkList DeleteElem(DLinkList head, int i) {
 }
 
 /*
+	求表长
+*/
+int ListLength(DLinkList head) {
+	int j;
+	for (j = 0; head->next != NULL; j++) {
+		head = head->next;
+	}
+	return j;
+}
+
+/*
 	遍历双链表
 */
 void PrintList(DLinkList head) {
@@ -207,5 +233,6 @@ int main() {
 	scanf("%d",&i);
 	head = DeleteElem(head, i);
 	PrintList(head);
+	printf("当前表长为%d",ListLength(head));
 	return 0;
 }
