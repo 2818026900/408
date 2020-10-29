@@ -11,6 +11,22 @@ typedef struct LinkList {
 
 LinkList head;//定义头指针
 
+/*
+	SingleLinkList(单链表的实现)
+
+	函数模块
+	HeadInsert() 头插法创建链表
+	TailInsert() 尾插法创建链表
+	GetElem() 获取指定位置的元素值
+	LocateElem() 获取指定元素首个位置
+	BefortInstert() 向指定位置前插入值
+	AfterInstert() 向指定位置后插入值
+	DeleteElem() 删除指定位置元素
+	ListLength() 获取当前链表长度（不带头）
+	PrintList() 打印当前链表
+*/
+
+
 
 //单链表的实现
 
