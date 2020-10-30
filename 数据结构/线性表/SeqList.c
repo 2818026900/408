@@ -1,6 +1,8 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 
+//0表示成功，-1表示失败
+
 //顺序表的实现
 /**
 *initList(&L)初始化顺序表
@@ -33,6 +35,16 @@ SeqList initList(SeqList* seq) {
 	return *seq;
 }
 
+//再分配空间，一般为初始空间两倍
+SeqList AgainMalloc(SeqList* seq) {
+	ElemType* NewBase;//分配新的临时基地址
+	NewBase = (ElemType*)realloc(seq->base,sizeof(ElemType) * seq->lengthMax * 2);
+	seq->base = NewBase;
+	seq->lengthMax = 2 * seq->lengthMax;
+	return *seq;
+}
+
+
 //求表长
 int ListLength(SeqList *seq) {
 	if (seq->length >= 0 && seq->length <= seq->lengthMax) {
@@ -50,7 +62,7 @@ int Empty(SeqList* seq) {
 void PrintList(SeqList* seq) {
 	int i;
 	for (i = 0; i < seq->length; i++) {
-		printf("%d\t", seq->base[i]);
+		printf("%d\t", *(seq->base+i));
 	}
 	printf("\n");
 }
@@ -60,8 +72,8 @@ int ListInsert(SeqList* seq, int i, ElemType e) {
 	
 	//判断空间是否满了
 	if (seq->length == seq->lengthMax) {
-		printf("空间不足，无法插入！");
-		return -1;
+		printf("空间不足，重新分配空间！");
+		*seq = AgainMalloc(seq);
 	}
 
 	//判断插入位置是否符合规范
@@ -124,13 +136,12 @@ int LocateElem(SeqList* seq, ElemType e) {
 //销毁顺序表
 int DestroyList(SeqList* seq) {
 	//清空线性表
-	if (seq->length > 0 && seq->length < seq->lengthMax) {
+	if (seq->length > 0 && seq->length <= seq->lengthMax) {
 		seq->length = 0;
 		//线性表总长归0
 		seq->lengthMax = 0;
 		//释放空间
 		free(seq->base);
-		//检查是否成功
 		printf("销毁成功\n");
 		return 0;
 	}
