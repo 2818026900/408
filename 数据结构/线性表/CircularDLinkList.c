@@ -38,7 +38,7 @@ CDLinkList initCDList() {
 
 	Tail = head;
 	Tail->next = head;
-	Tail->prior = head;
+	head->prior = Tail;
 	while (1) {
 		scanf("%d", &x);
 		if (x == -1) {
